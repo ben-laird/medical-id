@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
         "astro",
-        "tailwind"
+        "tailwind",
+        "config"
     ]
 }
