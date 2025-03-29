@@ -3,5 +3,6 @@
         "astro",
         "tailwind",
         "config"
-    ]
+    ],
+    "tailwindCSS.experimental.configFile": "src/styles/app.css"
 }
