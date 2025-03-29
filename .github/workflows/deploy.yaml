@@ -1,0 +1,38 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - "main"
+      - "dev"
+
+env:
+  OUTPUT: static
+  DEPLOY_PROJECT_NAME: medical-id
+  DRY: true
+
+jobs:
+  deploy:
+    name: Deploy
+
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Needed for auth with Deno Deploy
+      contents: read # Needed to clone the repository
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Build Astro
+        run: pnpm run build
+
+      - name: Upload ${{env.OUTPUT}} build to Deno Deploy
+        uses: denoland/deployctl@v1
+        if: ${{! env.DRY}}
+        with:
+          project: ${{env.DEPLOY_PROJECT_NAME}}
+          entrypoint: ${{env.OUTPUT == 'static' && 'jsr:@std/http/file-server' || 'dist/server/entry.mjs'}}
+          root: ${{env.OUTPUT == 'static' && 'dist' || ''}}
