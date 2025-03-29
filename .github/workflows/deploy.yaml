@@ -45,5 +45,5 @@ jobs:
         if: ${{! env.DRY}}
         with:
           project: ${{env.DEPLOY_PROJECT_NAME}}
-          entrypoint: ${{env.OUTPUT == 'static' && 'jsr:@std/http/file-server' || 'dist/server/entry.mjs'}}
-          root: ${{env.OUTPUT == 'static' && 'dist'}}
+          entrypoint: "jsr:@std/http/file-server"
+          root: "dist"
