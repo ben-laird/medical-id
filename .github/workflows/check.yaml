@@ -46,6 +46,11 @@ jobs:
         with:
           deno-version: 2.x
 
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: 1.9.4 # Use exact version to ensure local and ci have same version
+
       - name: Install dependencies
         run: |
           pnpm install
