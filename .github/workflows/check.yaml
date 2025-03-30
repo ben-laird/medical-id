@@ -14,32 +14,32 @@ on:
 jobs:
   check:
     name: Check
-    env:
-      DENO_DIR: ./.deno
+    # env:
+    #   DENO_DIR: ./.deno
     runs-on: ubuntu-latest
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
 
-      - name: Register or restore cache
-        uses: actions/cache@v4
-        with:
-          key: ${{hashFiles('deno.lock', 'pnpm-lock.yaml')}}
-          path: |
-            ${{env.DENO_DIR}}
-            ./dist
+      # - name: Register or restore cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     key: ${{hashFiles('deno.lock', 'pnpm-lock.yaml')}}
+      #     path: |
+      #       ${{env.DENO_DIR}}
+      #       ./dist
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.x
+      # - name: Setup pnpm
+      #   uses: pnpm/action-setup@v4
+      #   with:
+      #     version: 10.x
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 23.x
-          cache: pnpm
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 23.x
+      #     cache: pnpm
 
       - name: Setup Deno
         uses: denoland/setup-deno@v2
@@ -53,7 +53,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pnpm install
           deno install
 
       - name: Build project
