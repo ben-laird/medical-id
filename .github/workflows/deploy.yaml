@@ -31,7 +31,7 @@ jobs:
           deno-version: 2.x
 
       - name: Install dependencies
-        run: deno install
+        run: deno install --allow-scripts
 
       - name: Build project
         run: deno task build
