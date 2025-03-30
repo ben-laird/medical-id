@@ -8,8 +8,6 @@ on:
 jobs:
   deploy:
     name: Deploy
-    env:
-      DENO_DIR: ./.deno
     runs-on: ubuntu-latest
     permissions:
       id-token: write # Needed for auth with Deno Deploy
@@ -22,21 +20,10 @@ jobs:
       - name: Register or restore cache
         uses: actions/cache@v4
         with:
+          key: ${{hashFiles('deno.lock')}}
           path: |
-            ${{env.DENO_DIR}}
+            ./node_modules
             ./dist
-          key: ${{hashFiles('deno.lock', 'pnpm-lock.yaml')}}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.x
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 23.x
-          cache: pnpm
 
       - name: Setup Deno
         uses: denoland/setup-deno@v2
@@ -44,9 +31,7 @@ jobs:
           deno-version: 2.x
 
       - name: Install dependencies
-        run: |
-          pnpm install
-          deno install
+        run: deno install
 
       - name: Build project
         run: deno task build
