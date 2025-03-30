@@ -60,7 +60,7 @@ jobs:
         run: deno task build
 
       - name: Lint & format with Biome
-        run: biome ci .
+        run: biome ci src test
 
       - name: Test with Deno
         run: deno test
