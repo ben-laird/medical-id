@@ -1,8 +1,4 @@
 {
-    "conventionalCommits.scopes": [
-        "astro",
-        "tailwind",
-        "config"
-    ],
-    "tailwindCSS.experimental.configFile": "src/styles/app.css"
+	"conventionalCommits.scopes": ["astro", "tailwind", "config"],
+	"tailwindCSS.experimental.configFile": "src/styles/app.css"
 }
