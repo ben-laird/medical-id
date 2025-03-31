@@ -21,10 +21,20 @@ jobs:
       - name: Register or restore cache
         uses: actions/cache@v4
         with:
-          key: ${{hashFiles('deno.lock')}}
+          key: ${{hashFiles('deno.lock', 'pnpm-lock.yaml')}}
           path: |
-            ./node_modules
             ./dist
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.x
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23.x
+          cache: pnpm
 
       - name: Setup Deno
         uses: denoland/setup-deno@v2
@@ -37,7 +47,9 @@ jobs:
           version: 1.9.4 # Use exact version to ensure local and ci have same version
 
       - name: Install dependencies
-        run: deno install --allow-scripts
+        run: |
+          pnpm install
+          deno install --entrypoint test
 
       - name: Build project
         run: deno task build
