@@ -1,10 +1,10 @@
 import type {
+	Allergy,
 	Condition,
 	MedicalCondition,
-	Medication,
-	Allergy,
 	MedicalEvent,
 	MedicalProvider,
+	Medication,
 } from "./types.ts";
 
 export async function defineConfig(
