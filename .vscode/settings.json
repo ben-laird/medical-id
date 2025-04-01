@@ -3,7 +3,8 @@
 		"astro",
 		"tailwind",
 		"config",
-		"feature/app-config"
+		"feature/app-config",
+		"biome"
 	],
 	"tailwindCSS.experimental.configFile": "src/styles/app.css"
 }
