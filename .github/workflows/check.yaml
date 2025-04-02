@@ -1,17 +1,18 @@
-name: Deploy
+name: Check
 on:
   push:
     branches:
       - main
       - dev
+  pull_request:
+    branches:
+      - main
+      - dev
 
 jobs:
-  deploy:
-    name: Deploy
+  check:
+    name: Check
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # Needed for auth with Deno Deploy
-      contents: read # Needed to clone the repository
 
     steps:
       - name: Clone repository
@@ -40,20 +41,24 @@ jobs:
         with:
           deno-version: 2.x
 
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: 1.9.4 # Use exact version to ensure local and ci have same version
+
       - name: Install dependencies
         run: |
           pnpm install
-          deno install --allow-scripts
+          deno install --entrypoint test
 
       - name: Build project
         run: deno task build
 
-      - name: Upload build to Deno Deploy
-        uses: denoland/deployctl@v1
-        with:
-          project: medical-id
-          entrypoint: jsr:@std/http/file-server
-          root: ./dist
+      - name: Lint & format with Biome
+        run: biome ci src test
+
+      - name: Test with Deno
+        run: deno test test
 
       - name: Save artifacts
         uses: actions/upload-artifact@v4
