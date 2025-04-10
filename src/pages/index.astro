@@ -3,18 +3,49 @@ import Layout from "../layouts/Layout.astro";
 
 import config from "../medical-id.config";
 
-const loadedConfig = await config();
+const { name, birthday, pronouns, instructions, conditions } = await config();
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const formatter = new Intl.DateTimeFormat(undefined, {
+  dateStyle: "short",
+});
+
+const birthdate = formatter.format(birthday);
 ---
 
 <Layout>
-	<header>
-		<h1>Hello There</h1>
-	</header>
+  <header class="p-10">
+    <h1 class="text-3xl">{name}</h1>
 
-	<main>
-		<p>General Kenobi</p>
-	</main>
+    <dl class="grid grid-cols-2 w-fit">
+      <dt><p class="text-neutral-400">Birthday:</p></dt>
+      <dd><p>{birthdate}</p></dd>
+
+      <dt><p class="text-neutral-400">Pronouns:</p></dt>
+      <dd><p>{pronouns}</p></dd>
+    </dl>
+  </header>
+
+  <main class="flex flex-col gap-10 p-10">
+    <section>
+      <h2 class="text-2xl mb-4">Instructions</h2>
+
+      <p>{instructions}</p>
+    </section>
+
+    <section>
+      <h2 class="text-2xl mb-4">Conditions</h2>
+
+      <ul class="list-disc pl-6">
+        {
+          conditions.map(({ name, notes }) => (
+            <li>
+              <p>{name}</p>
+
+              {notes && <p>{notes}</p>}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
 </Layout>
