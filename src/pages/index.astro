@@ -6,46 +6,46 @@ import config from "../medical-id.config";
 const { name, birthday, pronouns, instructions, conditions } = await config();
 
 const formatter = new Intl.DateTimeFormat(undefined, {
-  dateStyle: "short",
+	dateStyle: "short",
 });
 
 const birthdate = formatter.format(birthday);
 ---
 
 <Layout>
-  <header class="p-10">
-    <h1 class="text-3xl">{name}</h1>
+	<header class="p-10">
+		<h1 class="text-3xl">{name}</h1>
 
-    <dl class="grid grid-cols-2 w-fit">
-      <dt><p class="text-neutral-400">Birthday:</p></dt>
-      <dd><p>{birthdate}</p></dd>
+		<dl class="grid grid-cols-2 w-fit">
+			<dt><p class="text-neutral-400">Birthday:</p></dt>
+			<dd><p>{birthdate}</p></dd>
 
-      <dt><p class="text-neutral-400">Pronouns:</p></dt>
-      <dd><p>{pronouns}</p></dd>
-    </dl>
-  </header>
+			<dt><p class="text-neutral-400">Pronouns:</p></dt>
+			<dd><p>{pronouns}</p></dd>
+		</dl>
+	</header>
 
-  <main class="flex flex-col gap-10 p-10">
-    <section>
-      <h2 class="text-2xl mb-4">Instructions</h2>
+	<main class="flex flex-col gap-10 p-10">
+		<section>
+			<h2 class="text-2xl mb-4">Instructions</h2>
 
-      <p>{instructions}</p>
-    </section>
+			<p>{instructions}</p>
+		</section>
 
-    <section>
-      <h2 class="text-2xl mb-4">Conditions</h2>
+		<section>
+			<h2 class="text-2xl mb-4">Conditions</h2>
 
-      <ul class="list-disc pl-6">
-        {
-          conditions.map(({ name, notes }) => (
-            <li>
-              <p>{name}</p>
+			<ul class="list-disc pl-6">
+				{
+					conditions.map(({ name, notes }) => (
+						<li>
+							<p>{name}</p>
 
-              {notes && <p>{notes}</p>}
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-  </main>
+							{notes && <p>{notes}</p>}
+						</li>
+					))
+				}
+			</ul>
+		</section>
+	</main>
 </Layout>
