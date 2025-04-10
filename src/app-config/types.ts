@@ -30,6 +30,7 @@ export interface MedicalProvider {
 }
 export interface InsuranceProvider {
 	name: string;
-	policyNumber: string;
-	phone?: string;
+	benefitsNumber: string;
+	beneficiaryDoDId: string;
+	sponserId: string;
 }

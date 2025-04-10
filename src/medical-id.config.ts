@@ -44,5 +44,12 @@ export default defineConfig(() => ({
 	surgeries: [],
 	vaccinations: [],
 	providers: [],
-	insurance: [],
+	insurance: [
+		{
+			name: "TRICare East - Humana",
+			benefitsNumber: "06282103-04",
+			beneficiaryDoDId: "1362732596",
+			sponserId: "1161321105",
+		},
+	],
 }));
