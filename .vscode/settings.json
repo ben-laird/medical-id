@@ -4,7 +4,8 @@
 		"tailwind",
 		"config",
 		"feature/app-config",
-		"biome"
+		"biome",
+		"feature/ui"
 	],
 	"tailwindCSS.experimental.configFile": "src/styles/app.css"
 }
