@@ -1,6 +1,7 @@
 import type {
 	Allergy,
 	Condition,
+	InsuranceProvider,
 	MedicalCondition,
 	MedicalEvent,
 	MedicalProvider,
@@ -22,6 +23,7 @@ export async function defineConfig(
 		surgeries = [],
 		vaccinations = [],
 		providers = [],
+		insurance = [],
 	} = await config({ mode: "standard" });
 
 	const allConditions = [
@@ -48,6 +50,7 @@ export async function defineConfig(
 		surgeries,
 		vaccinations,
 		providers,
+		insurance,
 	};
 }
 
@@ -63,6 +66,7 @@ export interface ConfigDefinition {
 	surgeries?: MedicalEvent[];
 	vaccinations?: MedicalEvent[];
 	providers?: MedicalProvider[];
+	insurance?: InsuranceProvider[];
 }
 
 export interface ConfigEnv {
@@ -82,6 +86,7 @@ export interface MedicalConfig {
 	surgeries: MedicalEvent[];
 	vaccinations: MedicalEvent[];
 	providers: MedicalProvider[];
+	insurance?: InsuranceProvider[];
 }
 
 type Potential<T> = T | Promise<T>;
