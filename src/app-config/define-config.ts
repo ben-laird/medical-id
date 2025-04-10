@@ -8,49 +8,51 @@ import type {
 	Medication,
 } from "./types.ts";
 
-export async function defineConfig(
+export function defineConfig(
 	config: (env: ConfigEnv) => Potential<ConfigDefinition>,
-): Promise<MedicalConfig> {
-	const {
-		name = "John Doe",
-		pronouns = "None specified",
-		birthday = new Date(),
-		instructions = "None specified",
+): () => Promise<MedicalConfig> {
+	return async () => {
+		const {
+			name = "John Doe",
+			pronouns = "None specified",
+			birthday = new Date(),
+			instructions = "None specified",
 
-		conditions = [],
-		meds = [],
-		allergies = [],
-		surgeries = [],
-		vaccinations = [],
-		providers = [],
-		insurance = [],
-	} = await config({ mode: "standard" });
+			conditions = [],
+			meds = [],
+			allergies = [],
+			surgeries = [],
+			vaccinations = [],
+			providers = [],
+			insurance = [],
+		} = await config({ mode: "standard" });
 
-	const allConditions = [
-		conditions,
-		meds,
-		allergies,
-		surgeries,
-		vaccinations,
-	].flatMap((el) => {
-		return el.map(({ name, highPriority }): Condition => {
-			return { name, highPriority };
+		const allConditions = [
+			conditions,
+			meds,
+			allergies,
+			surgeries,
+			vaccinations,
+		].flatMap((el) => {
+			return el.map(({ name, highPriority }): Condition => {
+				return { name, highPriority };
+			});
 		});
-	});
 
-	return {
-		name,
-		pronouns,
-		birthday,
-		instructions,
-		notableConditions: allConditions.filter((de) => de.highPriority),
-		conditions,
-		meds,
-		allergies,
-		surgeries,
-		vaccinations,
-		providers,
-		insurance,
+		return {
+			name,
+			pronouns,
+			birthday,
+			instructions,
+			notableConditions: allConditions.filter((de) => de.highPriority),
+			conditions,
+			meds,
+			allergies,
+			surgeries,
+			vaccinations,
+			providers,
+			insurance,
+		};
 	};
 }
 
