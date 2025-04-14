@@ -12,39 +12,16 @@ export function defineConfig(
 	config: (env: ConfigEnv) => Potential<ConfigDefinition>,
 ): () => Promise<MedicalConfig> {
 	return async () => {
+		const initialConfig = createInitialConfig();
+
+		const resolvedConfig = await config({ initialConfig });
+
 		const {
-			name = "John Doe",
-			pronouns = "None specified",
-			birthday = new Date(),
-			instructions = "None specified",
-
-			conditions = [],
-			meds = [],
-			allergies = [],
-			surgeries = [],
-			vaccinations = [],
-			providers = [],
-			insurance = [],
-		} = await config({ mode: "standard" });
-
-		const allConditions = [
-			conditions,
-			meds,
-			allergies,
-			surgeries,
-			vaccinations,
-		].flatMap((el) => {
-			return el.map(({ name, highPriority }): Condition => {
-				return { name, highPriority };
-			});
-		});
-
-		return {
 			name,
 			pronouns,
 			birthday,
 			instructions,
-			notableConditions: allConditions.filter((de) => de.highPriority),
+
 			conditions,
 			meds,
 			allergies,
@@ -52,8 +29,87 @@ export function defineConfig(
 			vaccinations,
 			providers,
 			insurance,
+
+			dateTimeFormat,
+		} = { ...initialConfig, ...resolvedConfig };
+
+		return {
+			name,
+			pronouns,
+			birthday,
+			instructions,
+			notableConditions: resolveNotableConditions([
+				conditions,
+				meds,
+				allergies,
+				surgeries,
+				vaccinations,
+			]),
+			conditions,
+			meds,
+			allergies,
+			surgeries,
+			vaccinations,
+			providers,
+			insurance,
+			dateTimeFormatter: new Intl.DateTimeFormat(undefined, dateTimeFormat),
 		};
 	};
+}
+
+function createInitialConfig(): InitialConfigDefinition {
+	return {
+		name: "John Doe",
+		pronouns: "None specified",
+		birthday: new Date(),
+		instructions: "None specified",
+
+		conditions: [],
+		meds: [],
+		allergies: [],
+		surgeries: [],
+		vaccinations: [],
+		providers: [],
+		insurance: [],
+
+		dateTimeFormat: {
+			dateStyle: "short",
+		},
+	};
+}
+
+function resolveNotableConditions(
+	conditionLists: (
+		| MedicalCondition[]
+		| Medication[]
+		| Allergy[]
+		| MedicalEvent[]
+	)[],
+): Condition[] {
+	const allConditions = conditionLists.flatMap((el) => {
+		return el.map(({ name, highPriority }): Condition => {
+			return { name, highPriority };
+		});
+	});
+
+	return allConditions.filter(({ highPriority }) => highPriority);
+}
+
+export interface InitialConfigDefinition {
+	name: string;
+	birthday: Date;
+	pronouns: string;
+
+	instructions: string;
+	conditions: MedicalCondition[];
+	meds: Medication[];
+	allergies: Allergy[];
+	surgeries: MedicalEvent[];
+	vaccinations: MedicalEvent[];
+	providers: MedicalProvider[];
+	insurance: InsuranceProvider[];
+
+	dateTimeFormat: Intl.DateTimeFormatOptions;
 }
 
 export interface ConfigDefinition {
@@ -69,10 +125,12 @@ export interface ConfigDefinition {
 	vaccinations?: MedicalEvent[];
 	providers?: MedicalProvider[];
 	insurance?: InsuranceProvider[];
+
+	dateTimeFormat?: Intl.DateTimeFormatOptions;
 }
 
 export interface ConfigEnv {
-	mode: string;
+	initialConfig: InitialConfigDefinition;
 }
 
 export interface MedicalConfig {
@@ -88,7 +146,9 @@ export interface MedicalConfig {
 	surgeries: MedicalEvent[];
 	vaccinations: MedicalEvent[];
 	providers: MedicalProvider[];
-	insurance?: InsuranceProvider[];
+	insurance: InsuranceProvider[];
+
+	dateTimeFormatter: Intl.DateTimeFormat;
 }
 
 type Potential<T> = T | Promise<T>;
