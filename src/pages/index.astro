@@ -3,13 +3,16 @@ import Layout from "../layouts/Layout.astro";
 
 import config from "../medical-id.config";
 
-const { name, birthday, pronouns, instructions, conditions } = await config();
+const {
+	name,
+	birthday,
+	pronouns,
+	instructions,
+	conditions,
+	dateTimeFormatter,
+} = await config();
 
-const formatter = new Intl.DateTimeFormat(undefined, {
-	dateStyle: "short",
-});
-
-const birthdate = formatter.format(birthday);
+const birthdate = dateTimeFormatter.format(birthday);
 ---
 
 <Layout>
