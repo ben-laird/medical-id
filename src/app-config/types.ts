@@ -17,7 +17,7 @@ export interface Allergy extends Condition {
 	effects?: string;
 }
 
-export type AllergyType = "food" | "medication";
+export type AllergyType = "food" | "medication" | "material";
 
 export interface MedicalEvent extends Condition {
 	administeredOn: Date;
@@ -27,4 +27,10 @@ export interface MedicalProvider {
 	name: string;
 	specialty: string;
 	phone?: string;
+}
+export interface InsuranceProvider {
+	name: string;
+	benefitsNumber: string;
+	beneficiaryDoDId: string;
+	sponserId: string;
 }
