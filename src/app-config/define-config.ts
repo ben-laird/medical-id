@@ -20,6 +20,7 @@ export function defineConfig(
 			name,
 			pronouns,
 			birthday,
+			bloodType,
 			instructions,
 
 			conditions,
@@ -37,6 +38,7 @@ export function defineConfig(
 			name,
 			pronouns,
 			birthday,
+			bloodType,
 			instructions,
 			notableConditions: resolveNotableConditions([
 				conditions,
@@ -62,6 +64,7 @@ function createInitialConfig(): InitialConfigDefinition {
 		name: "John Doe",
 		pronouns: "None specified",
 		birthday: new Date(),
+		bloodType: "None specified",
 		instructions: "None specified",
 
 		conditions: [],
@@ -99,6 +102,7 @@ export interface InitialConfigDefinition {
 	name: string;
 	birthday: Date;
 	pronouns: string;
+	bloodType: string;
 
 	instructions: string;
 	conditions: MedicalCondition[];
@@ -116,6 +120,7 @@ export interface ConfigDefinition {
 	name?: string;
 	birthday?: Date;
 	pronouns?: string;
+	bloodType?: string;
 
 	instructions?: string;
 	conditions?: MedicalCondition[];
@@ -137,6 +142,7 @@ export interface MedicalConfig {
 	name: string;
 	birthday: Date;
 	pronouns: string;
+	bloodType: string;
 
 	instructions: string;
 	notableConditions: Condition[];

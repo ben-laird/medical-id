@@ -7,8 +7,15 @@ const {
 	name,
 	birthday,
 	pronouns,
+	bloodType,
 	instructions,
 	conditions,
+	meds,
+	allergies,
+	surgeries,
+	vaccinations,
+	providers,
+	insurance,
 	dateTimeFormatter,
 } = await config();
 
@@ -25,6 +32,9 @@ const birthdate = dateTimeFormatter.format(birthday);
 
 			<dt><p class="text-neutral-400">Pronouns:</p></dt>
 			<dd><p>{pronouns}</p></dd>
+
+      <dt><p class="text-neutral-400">Blood Type:</p></dt>
+			<dd><p>{bloodType}</p></dd>
 		</dl>
 	</header>
 
@@ -45,6 +55,89 @@ const birthdate = dateTimeFormatter.format(birthday);
 							<p>{name}</p>
 
 							{notes && <p>{notes}</p>}
+						</li>
+					))
+				}
+			</ul>
+      <h2 class="text-2xl mb-4">Allergies</h2>
+
+			<ul class="list-disc pl-6">
+				{
+					allergies.map(({ name, kind, effects }) => (
+						<li>
+							<p>{name}</p>
+
+              {kind && <p>{kind}</p>}
+							{effects && <p>{effects}</p>}
+						</li>
+					))
+				}
+			</ul>
+      <h2 class="text-2xl mb-4">Medications</h2>
+
+			<ul class="list-disc pl-6">
+				{
+					meds.map(({ name, dose, frequency }) => (
+						<li>
+							<p>{name}</p>
+
+              {dose && <p>{dose}</p>}
+							{frequency && <p>{frequency}</p>}
+						</li>
+					))
+				}
+			</ul>
+      <h2 class="text-2xl mb-4">Past Surgeries</h2>
+
+			<ul class="list-disc pl-6">
+				{
+					surgeries.map(({ name, administeredOn }) => (
+						<li>
+							<p>{name}</p>
+
+							{administeredOn && <p>{administeredOn}</p>}
+						</li>
+					))
+				}
+			</ul>
+      <h2 class="text-2xl mb-4">Past Vaccinations</h2>
+
+			<ul class="list-disc pl-6">
+				{
+					vaccinations.map(({ name, administeredOn }) => (
+						<li>
+							<p>{name}</p>
+
+							{administeredOn && <p>{administeredOn}</p>}
+						</li>
+					))
+				}
+			</ul>
+      <h2 class="text-2xl mb-4">Providers</h2>
+
+			<ul class="list-disc pl-6">
+				{
+					providers.map(({ name, specialty, phone }) => (
+						<li>
+							<p>{name}</p>
+
+							{specialty && <p>{specialty}</p>}
+              {phone && <p>{phone}</p>}
+						</li>
+					))
+				}
+			</ul>
+      <h2 class="text-2xl mb-4">Insurance Provider</h2>
+
+			<ul class="list-disc pl-6">
+				{
+					insurance.map(({ name, benefitsNumber, beneficiaryDoDId, sponserId }) => (
+						<li>
+							<p>{name}</p>
+
+							{benefitsNumber && <p>{benefitsNumber}</p>}
+              {beneficiaryDoDId && <p>{beneficiaryDoDId}</p>}
+              {sponserId && <p>{sponserId}</p>}
 						</li>
 					))
 				}
