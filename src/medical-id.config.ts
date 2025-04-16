@@ -4,20 +4,22 @@ export default defineConfig(() => ({
 	name: "Allistar Grace Barrett",
 	pronouns: "they/them/theirs",
 	birthday: new Date(2003, 6, 29),
-	instructions: "bah",
+	bloodType: "A+",
+	instructions:
+		"Unresponsive verbally and physically during cataplectic episode. Lay on back or side to open airways. Do not use smelling salts. Trapezius Squeeze can occasionally return responsitivity.",
 	meds: [
 		{
-			name: "fluoxetine",
+			name: "Fluoxetine",
 			dose: "40mg",
 			frequency: "1/day",
 			highPriority: true,
 		},
 	],
 	conditions: [
-		{ name: "cataplexy", highPriority: true },
-		{ name: "anxiety", highPriority: true },
-		{ name: "depression", highPriority: false },
-		{ name: "Attention Deficit Disorder", highPriority: false },
+		{ name: "Cataplexy", highPriority: true },
+		{ name: "Generalized Anxiety", highPriority: true },
+		{ name: "Depression" },
+		{ name: "Attention Deficit Disorder" },
 	],
 	allergies: [
 		{
@@ -41,9 +43,11 @@ export default defineConfig(() => ({
 			effects: "runny nose, skin irritation, rash",
 		},
 	],
-	surgeries: [],
-	vaccinations: [],
-	providers: [],
+	surgeries: [
+		{ name: "Wisdom tooth extraction", administeredOn: new Date(2019, 1, 1) },
+	],
+	vaccinations: [{ name: "tetanus", administeredOn: new Date(2003, 1, 1) }],
+	providers: [{ name: "mike", specialty: "health", phone: "(910)000-0000" }],
 	insurance: [
 		{
 			name: "TRICare East - Humana",
