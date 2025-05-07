@@ -5,7 +5,6 @@ export default defineConfig(() => ({
 	pronouns: "they/them/theirs",
 	birthday: new Date(2003, 6, 29),
 	bloodType: "A+",
-	social: "414-95-1721",
 	instructions:
 		"Unresponsive verbally and physically during cataplectic episode. Lay on back or side to open airways. Do not use smelling salts. Trapezius Squeeze can occasionally return responsitivity.",
 	meds: [
