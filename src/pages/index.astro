@@ -3,11 +3,14 @@ import Layout from "../layouts/Layout.astro";
 
 import config from "../medical-id.config";
 
+import IMG_7075 from "../assets/IMG_7075.jpg";
+
 const {
 	name,
 	birthday,
 	pronouns,
 	bloodType,
+	social,
 	instructions,
 	conditions,
 	meds,
@@ -25,6 +28,7 @@ const birthdate = dateTimeFormatter.format(birthday);
 <Layout>
 	<header class="p-10">
 		<h1 class="text-3xl">{name}</h1>
+		<img src={IMG_7075.src} alt="">
 
 		<dl class="grid grid-cols-2 w-fit">
 			<dt><p class="text-neutral-400">Birthday:</p></dt>
@@ -33,19 +37,23 @@ const birthdate = dateTimeFormatter.format(birthday);
 			<dt><p class="text-neutral-400">Pronouns:</p></dt>
 			<dd><p>{pronouns}</p></dd>
 
-      <dt><p class="text-neutral-400">Blood Type:</p></dt>
+      		<dt><p class="text-neutral-400">Blood Type:</p></dt>
 			<dd><p>{bloodType}</p></dd>
+
+			<dt><p class="text-neutral-400">SSN:</p></dt>
+			<dd><p>{social}</p></dd>
 		</dl>
 	</header>
 
-	<main class="flex flex-col gap-10 p-10">
+	<main class="flex flex-col gap-6 p-10">
 		<section>
 			<h2 class="text-2xl mb-4">Instructions</h2>
 
 			<p>{instructions}</p>
 		</section>
 
-		<section>
+		<section class="flex flex-col gap-6">
+		<div class="border rounded-lg border-blue-100 p-2">
 			<h2 class="text-2xl mb-4">Conditions</h2>
 
 			<ul class="list-disc pl-6">
@@ -54,40 +62,46 @@ const birthdate = dateTimeFormatter.format(birthday);
 						<li>
 							<p>{name}</p>
 
-							{notes && <p>{notes}</p>}
+							{<p>{notes}</p>}
 						</li>
 					))
 				}
 			</ul>
-      <h2 class="text-2xl mb-4">Allergies</h2>
+		</div>
+	
+      <div class="border rounded-lg border-blue-100 p-2">
+		<h2 class="text-2xl mb-4">Allergies</h2>
 
 			<ul class="list-disc pl-6">
 				{
-					allergies.map(({ name, kind, effects }) => (
+					allergies.map(({ name, effects }) => (
 						<li>
 							<p>{name}</p>
 
-              {kind && <p>{kind}</p>}
-							{effects && <p>{effects}</p>}
+							<dt><p class="italic">{effects}</p></dt>
 						</li>
 					))
 				}
 			</ul>
-      <h2 class="text-2xl mb-4">Medications</h2>
+	  </div>
+     <div class="border rounded-lg border-blue-100 p-2">
+		<h2 class="text-2xl mb-4">Medications</h2>
 
-			<ul class="list-disc pl-6">
-				{
-					meds.map(({ name, dose, frequency }) => (
-						<li>
-							<p>{name}</p>
+		<ul class="list-disc pl-6">
+			{
+				meds.map(({ name, dose, frequency }) => (
+					<li>
+						<p>{name}</p>
 
-              {dose && <p>{dose}</p>}
-							{frequency && <p>{frequency}</p>}
-						</li>
-					))
-				}
-			</ul>
-      <h2 class="text-2xl mb-4">Past Surgeries</h2>
+		  {dose && <p>{dose}</p>}
+						{frequency && <p>{frequency}</p>}
+					</li>
+				))
+			}
+		</ul>
+	 </div>
+      <div class="border rounded-lg border-blue-100 p-2">
+		<h2 class="text-2xl mb-4">Past Surgeries</h2>
 
 			<ul class="list-disc pl-6">
 				{
@@ -100,7 +114,9 @@ const birthdate = dateTimeFormatter.format(birthday);
 					))
 				}
 			</ul>
-      <h2 class="text-2xl mb-4">Past Vaccinations</h2>
+	  </div>
+      <div class="border rounded-lg border-blue-100 p-2">
+		<h2 class="text-2xl mb-4">Past Vaccinations</h2>
 
 			<ul class="list-disc pl-6">
 				{
@@ -113,7 +129,9 @@ const birthdate = dateTimeFormatter.format(birthday);
 					))
 				}
 			</ul>
-      <h2 class="text-2xl mb-4">Providers</h2>
+	  </div>
+      <div class="border rounded-lg border-blue-100 p-2">
+		<h2 class="text-2xl mb-4">Providers</h2>
 
 			<ul class="list-disc pl-6">
 				{
@@ -127,21 +145,28 @@ const birthdate = dateTimeFormatter.format(birthday);
 					))
 				}
 			</ul>
-      <h2 class="text-2xl mb-4">Insurance Provider</h2>
+	  </div>
+     <div class="border rounded-lg border-blue-100 p-2">
+		<h2 class="text-2xl mb-4">Insurance Provider</h2>
 
-			<ul class="list-disc pl-6">
-				{
-					insurance.map(({ name, benefitsNumber, beneficiaryDoDId, sponserId }) => (
-						<li>
-							<p>{name}</p>
+		<ul class="list-disc pl-6">
+			{
+				insurance.map(({ name, benefitsNumber, beneficiaryDoDId, sponserId }) => (
+						<p>{name}</p>
+						<dl class="grid grid-cols-2 w-fit">
+		<dt><p class="text-neutral-400">Benefits Number:</p></dt>
+		<dd><p>{benefitsNumber}</p></dd>
 
-							{benefitsNumber && <p>{benefitsNumber}</p>}
-              {beneficiaryDoDId && <p>{beneficiaryDoDId}</p>}
-              {sponserId && <p>{sponserId}</p>}
-						</li>
-					))
-				}
-			</ul>
+		<dt><p class="text-neutral-400">Beneficiary DoD ID #:</p></dt>
+		<dd><p>{beneficiaryDoDId}</p></dd>
+
+		  <dt><p class="text-neutral-400">Sponsor DoD ID #:</p></dt>
+		<dd><p>{sponserId}</p></dd>
+	</dl>
+				))
+			}
+		</ul>
+	 </div>
 		</section>
 	</main>
 </Layout>

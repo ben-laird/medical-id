@@ -5,6 +5,7 @@ export default defineConfig(() => ({
 	pronouns: "they/them/theirs",
 	birthday: new Date(2003, 6, 29),
 	bloodType: "A+",
+	social: "414-95-1721",
 	instructions:
 		"Unresponsive verbally and physically during cataplectic episode. Lay on back or side to open airways. Do not use smelling salts. Trapezius Squeeze can occasionally return responsitivity.",
 	meds: [
@@ -23,23 +24,23 @@ export default defineConfig(() => ({
 	],
 	allergies: [
 		{
-			kind: "food",
-			name: "peaches",
-			effects: "mouth irritation, sore throat, runny nose",
-		},
-		{
-			kind: "food",
-			name: "pomegranates",
-			effects: "anaphylaxis",
-		},
-		{
 			kind: "material",
-			name: "liquid latex",
+			name: "Liquid Latex",
 			effects: "skin irritation, rash",
 		},
 		{
+			kind: "food",
+			name: "Pomegranates",
+			effects: "anaphylaxis",
+		},
+		{
+			kind: "food",
+			name: "Peaches",
+			effects: "mouth irritation, sore throat, runny nose",
+		},
+		{
 			kind: "material",
-			name: "pollen",
+			name: "Pollen",
 			effects: "runny nose, skin irritation, rash",
 		},
 	],
